@@ -3,6 +3,8 @@ package notes
 import (
 	"log"
 	"net/http"
+
+	"github.com/xyma8/go-notes-app/pkg/handler"
 )
 
 type APIServer struct {
@@ -19,11 +21,19 @@ func (s *APIServer) Run() error {
 	router := http.NewServeMux()
 	router.HandleFunc("GET /notes/{noteID}", func(w http.ResponseWriter, r *http.Request) {
 		noteID := r.PathValue("noteID")
-		w.Write([]byte("Note ID: " + noteID))
+		noteJSON, err := handler.GetNote(noteID)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+
+		w.Write(noteJSON)
 	})
 
-	v1 := http.NewServeMux()
-	v1.Handle("/api/", http.StripPrefix("/api", router))
+	//v1 := http.NewServeMux()
+	//v1.Handle("/api/", http.StripPrefix("/api", router))
 
 	server := http.Server{
 		Addr:    s.addr,

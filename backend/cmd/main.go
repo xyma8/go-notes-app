@@ -13,12 +13,7 @@ func main() {
 
 	dsn := "root:admin@tcp(127.0.0.1:3306)/gonotesdb"
 
-	db, err := storage.ConnectDB(dsn)
-	if err != nil {
-		log.Fatalf("Ошибка подключения к базе данных: %v", err)
-	}
-
-	defer db.Close()
+	storage.ConnectDB(dsn)
 
 	/*
 		// Пример выполнения запроса
