@@ -19,7 +19,9 @@ func NewAPIServer(addr string) *APIServer {
 
 func (s *APIServer) Run() error {
 	router := http.NewServeMux()
-	router.HandleFunc("GET /notes/{noteID}", func(w http.ResponseWriter, r *http.Request) {
+	router.HandleFunc("GET /api/notes/{noteID}", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
 		noteID := r.PathValue("noteID")
 		noteJSON, err := handler.GetNote(noteID)
 		if err != nil {
@@ -43,9 +45,3 @@ func (s *APIServer) Run() error {
 	log.Printf("Server has started %s", s.addr)
 	return server.ListenAndServe()
 }
-
-/*
-func (s *Server) Shutdown(ctx context.Context) error {
-	return s.httpServer.Shutdown(ctx)
-}
-*/

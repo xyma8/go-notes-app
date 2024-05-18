@@ -1,0 +1,45 @@
+.note-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Выравнивание элементов по левому краю */
+    gap: 10px; /* Расстояние между элементами */
+    max-width: 600px; /* Ограничиваем максимальную ширину */
+    margin: 20px auto; /* Центрируем контейнер по горизонтали и добавляем отступ сверху и снизу */
+    padding: 20px;
+    background-color: #f9f9f9; /* Светло-серый фон */
+    border: 1px solid #ccc; /* Светло-серая граница */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Небольшая тень */
+  }
+  
+  .note-display-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Темно-серый цвет */
+    margin-bottom: 10px; /* Отступ снизу */
+  }
+  
+  .note-display-content {
+    font-size: 16px;
+    line-height: 1.5; /* Интерлиньяж */
+    color: #555; /* Серая цветовая гамма для текста */
+  }
+  
+  .note-display-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px; /* Расстояние между элементами в футере */
+    font-size: 14px;
+    color: #777; /* Еще более светлый серый цвет */
+  }
+  
+  .note-display-author,
+  .note-display-time {
+    margin-top: 5px;
+  }
+  
+  .note-display-time {
+    color: #888; /* Светло-серый цвет */
+    font-style: italic; /* Курсив для времени */
+  }
