@@ -1,34 +1,49 @@
 .add-note-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Центрируем элементы по горизонтали */
-    gap: 20px; /* Расстояние между элементами */
-    max-width: 600px; /* Ограничиваем максимальную ширину */
-    margin: 0 auto; /* Центрируем форму по горизонтали */
-    padding: 20px;
-    background-color: #f9f9f9; /* Светло-серый фон */
-    border: 1px solid #ccc; /* Светло-серая граница */
-    border-radius: 8px; /* Закругленные углы */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Небольшая тень */
-  }
-  
-  .add-note-form input,
-  .add-note-form textarea {
-    width: 100%; /* Полная ширина */
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc; /* Светло-серая граница */
-    border-radius: 4px; /* Закругленные углы */
-    box-sizing: border-box;
-  }
-  
-  .add-note-form input:focus,
-  .add-note-form textarea:focus {
-    border-color: #007bff; /* Синий цвет границы при фокусе */
-    outline: none; /* Убираем стандартную обводку */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Синяя тень при фокусе */
-  }
-  
-  .add-note-form textarea {
-    resize: vertical; /* Пользователь может изменять только высоту */
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем элементы по горизонтали */
+  gap: 20px; /* Расстояние между элементами */
+  max-width: 600px; /* Ограничиваем максимальную ширину */
+  margin: 0 auto; /* Центрируем форму по горизонтали */
+  padding: 20px;
+  background-color: #f9f9f9; /* Светло-серый фон */
+  border: 1px solid #ccc; /* Светло-серая граница */
+  border-radius: 8px; /* Закругленные углы */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Небольшая тень */
+}
+
+.add-note-form input,
+.add-note-form textarea {
+  width: 100%; /* Полная ширина */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Светло-серая граница */
+  border-radius: 4px; /* Закругленные углы */
+  box-sizing: border-box;
+}
+
+.add-note-form input:focus,
+.add-note-form textarea:focus {
+  border-color: #007bff; /* Синий цвет границы при фокусе */
+  outline: none; /* Убираем стандартную обводку */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Синяя тень при фокусе */
+}
+
+.add-note-form textarea {
+  resize: vertical; /* Пользователь может изменять только высоту */
+}
+
+.save-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff; /* Синий фон */
+  color: white; /* Белый текст */
+  border: none;
+  border-radius: 4px; /* Закругленные углы */
+  cursor: pointer;
+  transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.save-button:hover {
+  background-color: #0056b3; /* Темный синий фон при наведении */
+}

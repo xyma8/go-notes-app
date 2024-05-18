@@ -1,10 +1,12 @@
 package notes
 
 import (
+	"encoding/json"
 	"log"
 	"net/http"
 
 	"github.com/xyma8/go-notes-app/pkg/handler"
+	models "github.com/xyma8/go-notes-app/pkg/models"
 )
 
 type APIServer struct {
@@ -32,6 +34,20 @@ func (s *APIServer) Run() error {
 		w.Header().Set("Content-Type", "application/json")
 
 		w.Write(noteJSON)
+	})
+
+	router.HandleFunc("POST /api/notes/add", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "application/json")
+
+		var noteDto models.NoteDto
+		err := json.NewDecoder(r.Body).Decode(&noteDto)
+		if err != nil {
+			http.Error(w, "Failed to parse JSON body", http.StatusBadRequest)
+			return
+		}
+
+		handler.AddNote(noteDto)
 	})
 
 	//v1 := http.NewServeMux()

@@ -10,6 +10,7 @@ type NoteData = {
     author?: string,
     timestamp: string
 }
+
 export default function NotePage() {
     const { noteId } = useParams();
     const [noteData, setNoteData] = useState<NoteData>();

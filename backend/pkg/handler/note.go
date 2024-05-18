@@ -2,7 +2,9 @@ package handler
 
 import (
 	"encoding/json"
+	"log"
 
+	models "github.com/xyma8/go-notes-app/pkg/models"
 	storage "github.com/xyma8/go-notes-app/pkg/storage"
 )
 
@@ -18,4 +20,8 @@ func GetNote(noteID string) ([]byte, error) {
 	}
 
 	return jsonData, nil
+}
+
+func AddNote(noteDto models.NoteDto) {
+	log.Printf(noteDto.Note)
 }
