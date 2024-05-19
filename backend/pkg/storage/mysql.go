@@ -38,3 +38,21 @@ func GetNoteById(noteID string) (*models.Note, error) {
 
 	return &note, nil
 }
+
+func AddNewNote(noteDto models.NoteDto) (*string, error) {
+	query := "CALL AddNote(?, ?, ?)"
+
+	// Переменная для хранения сгенерированного UUID заметки
+	var newID string
+
+	err := db.QueryRow(query, noteDto.Title, noteDto.Note, noteDto.Author).Scan(&newID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &newID, nil
+}
+
+func CloseDb() {
+
+}

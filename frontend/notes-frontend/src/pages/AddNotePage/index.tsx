@@ -12,8 +12,13 @@ type NoteData = {
 export default function AddNotePage() {
     const [noteData, setNoteData] = useState<NoteData>();
 
-    function sendNote(inputs: NoteData) {
-        API.post(`/notes/add`, inputs)
+    useEffect(() => {
+        sendNote();
+
+    }, [noteData]);
+
+    function sendNote() {
+        API.post(`/notes/add`, noteData)
         .then(response => {
             console.log(response.data);
         })
@@ -33,7 +38,7 @@ export default function AddNotePage() {
 
     function handleFormChange(inputs: NoteData) {
         setNoteData(inputs);
-        sendNote(inputs);
+        //sendNote(inputs);
     }
 
     return(

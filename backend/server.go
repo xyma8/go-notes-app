@@ -28,7 +28,7 @@ func (s *APIServer) Run() error {
 		noteJSON, err := handler.GetNote(noteID)
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
+			//return
 		}
 
 		w.Header().Set("Content-Type", "application/json")
@@ -44,10 +44,18 @@ func (s *APIServer) Run() error {
 		err := json.NewDecoder(r.Body).Decode(&noteDto)
 		if err != nil {
 			http.Error(w, "Failed to parse JSON body", http.StatusBadRequest)
-			return
+			//return
 		}
 
-		handler.AddNote(noteDto)
+		noteUUID, err := handler.AddNote(noteDto)
+
+		if err != nil {
+			log.Printf("/notes/add " + err.Error())
+			http.Error(w, "Ошибка при добавлении новой заметки", http.StatusInternalServerError)
+			//return
+		}
+
+		w.Write(noteUUID)
 	})
 
 	//v1 := http.NewServeMux()
