@@ -1,5 +1,6 @@
 import AddNoteForm from "../../components/AddNoteForm"
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import "./style.css"
 import API from "../../services/API";
 
@@ -10,22 +11,23 @@ type NoteData = {
 }
 
 export default function AddNotePage() {
-    const [noteData, setNoteData] = useState<NoteData>();
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        sendNote();
-
-    }, [noteData]);
-
-    function sendNote() {
-        API.post(`/notes/add`, noteData)
+    function sendNote(data: NoteData) {
+        console.log(data)
+        API.post(`/notes/add`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
         .then(response => {
             console.log(response.data);
+            navigate(`/notes/${response.data}`);
         })
         .catch(error =>{
             console.error(error);
             if(error.response.status == 404) {
-                alert("Workout not found");
+                alert("Note not found");
             }
             if(error.response.status == 403) {
                 alert("Access denied");
@@ -37,8 +39,8 @@ export default function AddNotePage() {
     }
 
     function handleFormChange(inputs: NoteData) {
-        setNoteData(inputs);
-        //sendNote(inputs);
+        console.log(inputs);
+        sendNote(inputs);
     }
 
     return(

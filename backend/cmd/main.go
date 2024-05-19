@@ -18,4 +18,6 @@ func main() {
 	if err := server.Run(); err != nil {
 		log.Fatalf("error while running http server: %s", err.Error())
 	}
+
+	storage.CloseDb()
 }

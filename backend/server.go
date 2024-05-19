@@ -21,30 +21,27 @@ func NewAPIServer(addr string) *APIServer {
 
 func (s *APIServer) Run() error {
 	router := http.NewServeMux()
-	router.HandleFunc("GET /api/notes/{noteID}", func(w http.ResponseWriter, r *http.Request) {
+
+	router.HandleFunc("OPTIONS /api/notes/add", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
-
-		noteID := r.PathValue("noteID")
-		noteJSON, err := handler.GetNote(noteID)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			//return
-		}
-
-		w.Header().Set("Content-Type", "application/json")
-
-		w.Write(noteJSON)
+		w.Header().Set("Access-Control-Allow-Methods", "POST")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.WriteHeader(http.StatusOK)
 	})
 
 	router.HandleFunc("POST /api/notes/add", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Methods", "POST")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		log.Printf("api/notes/add")
 
 		var noteDto models.NoteDto
 		err := json.NewDecoder(r.Body).Decode(&noteDto)
 		if err != nil {
 			http.Error(w, "Failed to parse JSON body", http.StatusBadRequest)
-			//return
+			return
 		}
 
 		noteUUID, err := handler.AddNote(noteDto)
@@ -52,10 +49,25 @@ func (s *APIServer) Run() error {
 		if err != nil {
 			log.Printf("/notes/add " + err.Error())
 			http.Error(w, "Ошибка при добавлении новой заметки", http.StatusInternalServerError)
-			//return
+			return
 		}
 
 		w.Write(noteUUID)
+	})
+
+	router.HandleFunc("GET /api/notes/{noteID}", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		noteID := r.PathValue("noteID")
+		noteJSON, err := handler.GetNote(noteID)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+
+		w.Write(noteJSON)
 	})
 
 	//v1 := http.NewServeMux()

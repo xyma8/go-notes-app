@@ -23,7 +23,6 @@ func GetNote(noteId string) ([]byte, error) {
 }
 
 func AddNote(noteDto models.NoteDto) ([]byte, error) {
-	log.Printf(noteDto.Note)
 	noteUUID, err := storage.AddNewNote(noteDto)
 	if err != nil {
 		log.Printf("Ошибка при добавлении новой заметки: %v", err)

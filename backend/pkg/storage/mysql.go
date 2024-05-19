@@ -17,7 +17,6 @@ func ConnectDB(dsn string) {
 	if err != nil {
 		log.Fatalf("Ошибка подключения к базе данных: %v", err)
 	}
-	//defer db.Close()
 
 	// Проверка соединения
 	err = db.Ping()
@@ -54,5 +53,5 @@ func AddNewNote(noteDto models.NoteDto) (*string, error) {
 }
 
 func CloseDb() {
-
+	db.Close()
 }

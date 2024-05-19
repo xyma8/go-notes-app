@@ -12,15 +12,22 @@ type AddNoteFormProps = {
 }
 
 export default function AddNoteForm(props: AddNoteFormProps) {
-    const [formData, setFormData] = useState<NoteData>()
+    const [formData, setFormData] = useState<NoteData>({ title: "", note: "", author: "Аноним" })
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-        setFormData(prevState => ({
-            ...prevState!,
-            [name]: value
-        }));
-      };
+    function handleTitleChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const value = event.target.value;
+        setFormData(prevState => ({ ...prevState, title: value }));
+    };
+
+    function handleNoteChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const value = event.target.value;
+        setFormData(prevState => ({ ...prevState, note: value }));
+    };
+
+    function handleAuthorChange(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
+        const value = event.target.value;
+        setFormData(prevState => ({ ...prevState, author: value }));
+    };
 
     function sendNote() {
         if(formData) {
@@ -30,14 +37,14 @@ export default function AddNoteForm(props: AddNoteFormProps) {
 
     return(
     <div className="add-note-form">
-        <input autoComplete="off" placeholder="Тема заметки (необязательно)" onChange={handleInputChange}></input>
+        <input autoComplete="off" placeholder="Заголовок заметки (необязательно)" onChange={handleTitleChange}></input>
         <textarea autoComplete="off"
          placeholder="Заметка" 
          rows={20} 
          cols={80}
-         onChange={handleInputChange}>
+         onChange={handleNoteChange}>
         </textarea>
-        <input autoComplete="off" placeholder="Author" defaultValue={"Аноним"} onChange={handleInputChange}></input>
+        <input autoComplete="off" placeholder="Author" defaultValue={"Аноним"} onChange={handleAuthorChange}></input>
         <button onClick={sendNote} className="save-button">Сохранить</button>
     </div>
     )
